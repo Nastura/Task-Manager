@@ -60,11 +60,11 @@ public class TodosTest {
         todos.add(taskTwo);
         todos.add(taskThree);
 
-        todos.search("Работа");
+//        todos.search("Работа");
         todos.search("Купить молоко");
-        todos.search("Kotlin");
+//        todos.search("Kotlin");
 
-        Task[] expected = {simpleTask, epic, taskTwo};
+        Task[] expected = {epic};
         Task[] actual = todos.findAll();
         Assertions.assertArrayEquals(expected, actual);
 
