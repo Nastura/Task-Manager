@@ -14,8 +14,6 @@ public class Epic extends Task {
         for (String i : subtasks) {
             if (i.contains(query)) {
                 return true;
-            } else {
-                return false;
             }
         }
         return false;

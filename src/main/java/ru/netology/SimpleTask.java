@@ -17,6 +17,15 @@ public class SimpleTask extends Task {
         }
     }
 
+    public int testGet(String title) {
+        if (title.equals(getTitle())) {
+            return 1;
+        } else {
+            return 0;
+        }
+
+    }
+
     public String getTitle() {
         return title;
     }

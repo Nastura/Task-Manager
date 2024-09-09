@@ -25,6 +25,15 @@ public class Meeting extends Task {
         return false;
     }
 
+    public int testGet(String topic, String project, String start) {
+        if (topic.equals(getTopic()) | project.equals(getProject()) | start.equals(getStart())) {
+            return 1;
+        } else {
+            return 0;
+        }
+
+    }
+
     public String getTopic() {
         return topic;
     }
