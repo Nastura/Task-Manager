@@ -22,8 +22,8 @@ public class Epic extends Task {
     }
 
 
-        public String[] getSubtsks () {
-            return subtasks;
-        }
+    public String[] getSubtsks() {
+        return subtasks;
     }
+}
 
