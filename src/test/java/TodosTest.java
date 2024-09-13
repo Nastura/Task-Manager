@@ -35,13 +35,13 @@ public class TodosTest {
     @Test // Поиск одной задачи
     public void searchForOneTask() {
 
-        SimpleTask simpleTask2 = new SimpleTask(2, "Сон");
+        SimpleTask simpleTask = new SimpleTask(2, "Приготовить салат");
         String[] subtask = {"Купить молоко 1% в КуулКлевер"};
         Epic epic = new Epic(1, subtask);
-        Meeting taskOne = new Meeting(1, "Сон", "Подсознание", "10 октября 2024 год");
+        Meeting taskOne = new Meeting(1, "Приготовить суп", "Еда", "13 сентября 2024г.");
 
         Todos todos = new Todos();
-        todos.add(simpleTask2);
+        todos.add(simpleTask);
         todos.add(epic);
         todos.add(taskOne);
         todos.search("Купить молоко 1% в КуулКлевер");
@@ -55,18 +55,18 @@ public class TodosTest {
     @Test // Поиск двух задач по одному запросу
     public void searchForTwoTasks() {
 
-        SimpleTask simpleTask2 = new SimpleTask(2, "Сон");
+        SimpleTask simpleTask = new SimpleTask(2, "Приготовить салат");
         String[] subtask = {"Купить молоко 1% в КуулКлевер"};
         Epic epic = new Epic(1, subtask);
-        Meeting taskOne = new Meeting(1, "Сон", "Подсознание", "10 октября 2024 год");
+        Meeting meeting = new Meeting(1, "Приготовить суп", "Еда", "13 сентября 2024г.");
 
         Todos todos = new Todos();
-        todos.add(simpleTask2);
+        todos.add(simpleTask);
         todos.add(epic);
-        todos.add(taskOne);
-        todos.search("Сон");
+        todos.add(meeting);
+        todos.search("Приготовить");
 
-        Task[] expected = {simpleTask2, taskOne};
+        Task[] expected = {simpleTask, meeting};
         Task[] actual = todos.findAll();
         Assertions.assertArrayEquals(expected, actual);
 
@@ -75,18 +75,18 @@ public class TodosTest {
     @Test  // Поиск задачи по параметру project из задачи типа Meeting
     public void searchByParameterProject() {
 
-        SimpleTask simpleTask2 = new SimpleTask(2, "Сон");
+        SimpleTask simpleTask = new SimpleTask(2, "Приготовить салат");
         String[] subtask = {"Купить молоко 1% в КуулКлевер"};
         Epic epic = new Epic(1, subtask);
-        Meeting taskOne = new Meeting(1, "Сон", "Подсознание", "10 октября 2024 год");
+        Meeting meeting = new Meeting(1, "Приготовить суп", "Еда", "13 сентября 2024г");
 
         Todos todos = new Todos();
-        todos.add(simpleTask2);
+        todos.add(simpleTask);
         todos.add(epic);
-        todos.add(taskOne);
-        todos.search("Подсознание");
+        todos.add(meeting);
+        todos.search("Еда");
 
-        Task[] expected = {taskOne};
+        Task[] expected = {meeting};
         Task[] actual = todos.findAll();
         Assertions.assertArrayEquals(expected, actual);
 
@@ -95,61 +95,62 @@ public class TodosTest {
     @Test  // Поиск не существующей задачи
     public void searchForNullTasks() {
 
-        SimpleTask simpleTask2 = new SimpleTask(2, "Сон");
+        SimpleTask simpleTask = new SimpleTask(2, "Приготовить салат");
         String[] subtask = {"Купить молоко 1% в КуулКлевер"};
         Epic epic = new Epic(1, subtask);
-        Meeting taskOne = new Meeting(1, "Сон", "Подсознание", "10 октября 2024 год");
+        Meeting meeting = new Meeting(1, "Приготовить суп", "Еда", "13 сентября 2024г");
 
         Todos todos = new Todos();
-        todos.add(simpleTask2);
+        todos.add(simpleTask);
         todos.add(epic);
-        todos.add(taskOne);
+        todos.add(meeting);
 
         Task[] expected = {};
-        Task[] actual = todos.search("Гранат");
+        Task[] actual = todos.search("Выполнить");
         Assertions.assertArrayEquals(expected, actual);
 
     }
 
     @Test  // Тест методов геттеры в SimpleTask
-    public void checkOfGettersSimpleTask() {
-        SimpleTask test = new SimpleTask(1, "Приготовить пирог");
+    public void  comparisonOfValidTitleSimpleTask() {
+        SimpleTask simpleTask = new SimpleTask(1, "Приготовить пирог");
         Todos todos = new Todos();
-        todos.add(test);
-        int expected = 1;
-        int actual = test.testGet("Приготовить пирог");
+        todos.add(simpleTask);
+        int expected = 0;
+        int actual = simpleTask.comparisonOfVariables("Приготовить пирог");
         Assertions.assertEquals(expected, actual);
     }
 
     @Test  // Тест методов геттеры в SimpleTask
-    public void checkOfGetters2SimpleTask() {
-        SimpleTask test = new SimpleTask(1, "Приготовить пирог");
+    public void comparisonOfInValidTitleSimpleTask() {
+        SimpleTask simpleTask = new SimpleTask(1, "Приготовить пирог");
         Todos todos = new Todos();
-        todos.add(test);
-        int expected = 0;
-        int actual = test.testGet("Приготовить сыр");
+        todos.add(simpleTask);
+        int expected = 1;
+        int actual = simpleTask.comparisonOfVariables("Приготовить сыр");
         Assertions.assertEquals(expected, actual);
+
     }
 
 
     @Test  // Тест методов геттеры в Epic
-    public void checkOfGetters2Epic() {
+    public void gettingFieldsEpic() {
         String[] subtask = {"Купить молоко 1% в КуулКлевер"};
         Epic epic = new Epic(1, subtask);
         Todos todos = new Todos();
         todos.add(epic);
         String[] expected = {"Купить молоко 1% в КуулКлевер"};
-        String[] actual = epic.getSubtsks();
+        String[] actual = epic.getSubtasks();
         Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test  // Тест методов геттеры в Meeting
-    public void checkOfGetters2Meeting() {
-        Meeting taskOne = new Meeting(1, "Сон", "Подсознание", "10.09.2024");
+    public void gettingFieldsMeeting() {
+        Meeting meeting = new Meeting(1, "Сон", "Подсознание", "10.09.2024");
         Todos todos = new Todos();
-        todos.add(taskOne);
-        int expected = 1;
-        int actual = taskOne.testGet("Сон", "Подсознание", "10.09.2024");
+        todos.add(meeting);
+        int expected = 0;
+        int actual = meeting.comparisonOfVariables("Сон", "Подсознание", "10.09.2024");
         Assertions.assertEquals(expected, actual);
     }
 }
