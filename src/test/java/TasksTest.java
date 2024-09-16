@@ -8,59 +8,83 @@ public class TasksTest {
 
 
     @Test
-    public void testMatchesMeeting() {
+    public void searchByValidQueryInMeeting() {  // поиск по допустимому запросу в Meeting
 
-        Meeting taskOne = new Meeting(1, "Java", "Подсознание", "10 октября 2024 год");
-        Meeting taskTwo = new Meeting(2, "Kotlin", "Мировоззрение", "10 ноября 2024 год");
-        Meeting taskThree = new Meeting(3, "Rubi", "Подсознание", "10 декабря 2024 год");
-        Meeting taskFor = new Meeting(4, "JavaScript", "Интуиция", "10 января 2025 год");
-        Meeting taskFive = new Meeting(5, "Go", "Чувства", "10 февраля 2025 год");
-
+        Meeting taskOne = new Meeting(1, "Приготовить суп", "Еда", "16 сентября 2024");
         Todos todos = new Todos();
         todos.add(taskOne);
-        todos.add(taskTwo);
-        todos.add(taskThree);
-        todos.add(taskFor);
-        todos.add(taskFive);
-
-
-        Task[] expected = {taskOne, taskTwo, taskThree, taskFor, taskFive};
-        Task[] actual = todos.findAll();
-        Assertions.assertArrayEquals(expected, actual);
+        boolean actual = taskOne.matches("Приготовить");
+        boolean expected = true;
+        Assertions.assertEquals(expected, actual);
     }
 
 
     @Test
-    public void testMatchesSimpleTask() {
+    public void searchByValidQueryInSimpleTask() {  // поиск по допустимому запросу в SimpleTask
 
-        SimpleTask sympletask = new SimpleTask(1, "Купить молоко 1% в КуулКлевер");
-
+        SimpleTask sympleTask = new SimpleTask(1, "Купить молоко 1% в КуулКлевер");
         Todos todos = new Todos();
-        todos.add(sympletask);
-
-        Task[] expected = {sympletask};
-        Task[] actual = todos.findAll();
-        System.out.println(Arrays.toString(expected));
-        System.out.println(Arrays.toString(actual));
-        Assertions.assertArrayEquals(expected, actual);
+        todos.add(sympleTask);
+        boolean expected = true;
+        boolean actual = sympleTask.matches("Купить молоко 1% в КуулКлевер");
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
-    public void testMatchesEpic() {
+    public void searchByValidQueryInEpic() {  // поиск по допустимому запросу в Epic
 
         String[] subtask = {
                 "Отправить на проверку 13 дз",
                 "Пересадить цветы",
-                "Сходить в тренажерку"
+                "Сходить в тренажёрный зал"
         };
         Epic epic = new Epic(1, subtask);
-
         Todos todos = new Todos();
         todos.add(epic);
-
-        Task[] expected = {epic};
-        Task[] actual = todos.findAll();
-
-        Assertions.assertArrayEquals(expected, actual);
+        boolean expected = true;
+        boolean actual = epic.matches("Пересадить цветы");
+        Assertions.assertEquals(expected, actual);
     }
+
+    @Test
+    public void searchByInValidQueryInMeeting() {  // поиск по НЕ допустимому запросу в Meeting
+
+        Meeting taskOne = new Meeting(1, "Приготовить суп", "Еда", "16 сентября 2024");
+        Todos todos = new Todos();
+        todos.add(taskOne);
+        boolean actual = taskOne.matches("Прогуляться");
+        boolean expected = false;
+        Assertions.assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void searchByInValidQueryInSimpleTask() { // поиск по НЕ допустимому запросу в SimpleTask
+
+        SimpleTask simpleTask = new SimpleTask(1, "Выполнить домашнюю работу");
+        Todos todos = new Todos();
+        todos.add(simpleTask);
+
+        boolean actual = simpleTask.matches("Поработать");
+        boolean expected = false;
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void searchByInValidQueryInEpic() {  // поиск по НЕ допустимому запросу в Epic
+
+        String[] subtask = {
+                "Отправить на проверку 13 дз",
+                "Пересадить цветы",
+                "Сходить в тренажёрный зал"
+        };
+        Epic epic = new Epic(1, subtask);
+        Todos todos = new Todos();
+        todos.add(epic);
+        boolean expected = false;
+        boolean actual = epic.matches("Прогуляться");
+        Assertions.assertEquals(expected, actual);
+    }
+
+
 }

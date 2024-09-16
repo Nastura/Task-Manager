@@ -25,11 +25,11 @@ public class Meeting extends Task {
         return false;
     }
 
-    public int comparisonOfVariables(String topic, String project, String start) {
-        if (topic.equals(getTopic()) | project.equals(getProject()) | start.equals(getStart())) {
-            return 0;
+    public boolean comparisonOfVariables(String topic, String project, String start) {
+        if (topic.equals(getTopic()) & project.equals(getProject()) & start.equals(getStart())) {
+            return true;
         } else {
-            return 1;
+            return false;
         }
 
     }

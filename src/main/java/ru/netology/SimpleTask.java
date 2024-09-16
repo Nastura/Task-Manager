@@ -17,11 +17,11 @@ public class SimpleTask extends Task {
         }
     }
 
-    public int comparisonOfVariables(String title) {
+    public boolean comparisonOfVariables(String title) {
         if (title.equals(getTitle())) {
-            return 0;
+            return true;
         } else {
-            return 1;
+            return false;
         }
 
     }
