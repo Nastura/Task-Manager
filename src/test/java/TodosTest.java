@@ -30,7 +30,7 @@ public class TodosTest {
         Assertions.assertArrayEquals(expected, actual);
     }
 
-    @Test // Поиск одной задачи
+    @Test // Запрос query в задаче типа epic - одна задача
     public void searchForOneTask() {
 
         SimpleTask simpleTask = new SimpleTask(2, "Приготовить салат");
@@ -47,7 +47,7 @@ public class TodosTest {
 
     }
 
-    @Test // Поиск двух задач по одному запросу
+    @Test // Запрос query в задаче типа simpleTask  и  meeting - две задача
     public void searchForTwoTasks() {
 
         SimpleTask simpleTask = new SimpleTask(2, "Приготовить салат");
@@ -159,4 +159,5 @@ public class TodosTest {
         boolean actual = task.equals(meeting);
         Assertions.assertEquals(expected, actual);
     }
+
 }
